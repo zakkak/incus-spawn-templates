@@ -1,0 +1,48 @@
+name: tpl-mandrel-dev
+description: Mandrel development
+parent: tpl-mandrel-dev-packages
+
+host-resources:
+  - source: ~/.agents/skills/
+    mode: readonly
+  # - source: ~/.claude/skills/
+  #   mode: readonly
+  - source: ~/.claude/plugins/
+    mode: readonly
+  - source: ~/.emacs.d/init.el
+    mode: readonly
+  - source: ~/.tmux.conf
+    mode: readonly
+
+workdir: ~/
+
+tools:
+  - vscode-remote
+  - sshd
+
+repo-paths:
+  quarkus: ~/code/quarkus
+  graal: ~/code/graal-oracle
+  graalvm-community-jdk21u: ~/code/backports-21/graal
+  graalvm-community-jdk25u: ~/code/backports-25/graal
+  mx: ~/code/mx
+  mandrel: ~/code/mandrel
+  mandrel-packaging: ~/code/mandrel-packaging
+  jdk: ~/code/jdk
+  jdk25u: ~/code/jdk25u
+  jdk21u-dev: ~/code/jdk21u-dev
+  incus-spawn: ~/code/incus-spawn
+
+repos:
+  - url: https://github.com/sanne/incus-spawn.git
+    path: ~/incus-spawn
+  - url: https://github.com/quarkusio/quarkus.git
+    path: ~/quarkus
+  - url: https://github.com/graalvm/mx.git
+    path: ~/mx
+  - url: https://github.com/graalvm/mandrel.git
+    path: ~/mandrel
+  - url: https://github.com/graalvm/mandrel-packaging.git
+    path: ~/mandrel-packaging
+  - url: https://github.com/Karm/mandrel-integration-tests.git
+    path: ~/mandrel-integration-tests

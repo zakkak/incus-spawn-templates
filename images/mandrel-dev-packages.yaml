@@ -1,0 +1,54 @@
+name: tpl-mandrel-dev-packages
+description: Mandrel development packages
+parent: tpl-java
+
+packages:
+  # Native image / substratevm build dependencies
+  - gcc
+  - gcc-c++
+  - make
+  - glibc-devel
+  - zlib-devel
+  - glibc-static
+  - zlib-static
+  - libstdc++-static
+  - libffi-devel
+  # Assorted build helpers mx shells out to
+  - patch
+  - unzip
+  - zip
+  - file
+  - diffutils
+
+  # Developer tools
+  - awk
+  - gawk
+  - emacs-nox
+  - gdb
+  - strace
+  - ripgrep
+  - jq
+  - htop
+  - lsof
+  - graphviz
+  - sqlite
+  - git-lfs
+  - bash-completion
+  - rsync
+  - wget
+  - zip
+  - unzip
+  - openssh-clients
+  - nftables
+  - diffutils
+  - hostname
+  - time
+
+tools:
+  - claude
+  - pi
+  - gh
+  - bob
+  - codex
+  - copilot
+  - zmx

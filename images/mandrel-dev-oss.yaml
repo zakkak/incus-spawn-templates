@@ -1,0 +1,21 @@
+name: tpl-mandrel-dev-oss
+description: Mandrel development with Claude OSS
+parent: tpl-mandrel-dev
+
+workdir: ~/
+
+packages:
+  - iptables-nft
+
+tools:
+  - opencode
+
+repo-paths:
+  2026-10-devstaff-ai-sandboxing: ~/code/2026-10-devstaff-ai-sandboxing
+
+repos:
+  - url: https://github.com/zakkak/2026-10-devstaff-ai-sandboxing.git
+    path: ~/2026-10-devstaff-ai-sandboxing
+
+accounts:
+  claude: claude-oss
