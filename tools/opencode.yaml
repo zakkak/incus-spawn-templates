@@ -15,7 +15,7 @@ parameters:
     optional: true
     reconfigurable: true
 run:
-  - npm install -g opencode-ai@latest
+  - npm install -g opencode/cli@latest
   # Workaround for https://github.com/Sanne/incus-spawn/issues/749
   # host-resource copy creates ~/.config/opencode/ as root
   - |
