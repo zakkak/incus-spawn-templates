@@ -1,0 +1,21 @@
+name: mise
+description: mise 2026.10.9 — polyglot runtime/tool version manager
+
+downloads:
+  - url: https://github.com/jdx/mise/releases/download/v2026.10.9/mise-v2026.10.9-linux-x64
+    sha256: 6ab6646b52b83f6bbd51c9d0d3ae54264ffa90efd1ac6d7c0ec5a86bbc6a0030
+    destination_file: /usr/local/bin/mise
+    arch: x86_64
+  - url: https://github.com/jdx/mise/releases/download/v2026.10.9/mise-v2026.10.9-linux-arm64
+    sha256: e5cf4820b0d3fd47776acf7811c855a52277262d35dcda1a9e8754e6d5442a39
+    destination_file: /usr/local/bin/mise
+    arch: aarch64
+
+run:
+  # destination_file only guarantees a+r, and this one is an executable.
+  - chmod 0755 /usr/local/bin/mise
+
+verify: mise --version
+
+agent_note: |
+  Use mise to install any tool not available via the OS package manager.

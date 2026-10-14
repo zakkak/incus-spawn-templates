@@ -19,6 +19,7 @@ workdir: ~/
 tools:
   - vscode-remote
   - sshd
+  - mise
 
 repo-paths:
   quarkus: ~/code/quarkus
