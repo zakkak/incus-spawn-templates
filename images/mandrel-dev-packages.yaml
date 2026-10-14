@@ -1,6 +1,6 @@
 name: tpl-mandrel-dev-packages
 description: Mandrel development packages
-parent: tpl-java
+parent: tpl-minimal
 
 packages:
   # Native image / substratevm build dependencies
@@ -43,6 +43,13 @@ packages:
   - diffutils
   - hostname
   - time
+  - java-25-openjdk-devel
+  - java-25-openjdk-javadoc
+  - java-25-openjdk-src
+
+env:
+  - name: JAVA_HOME
+    value: /usr/lib/jvm/java-25-openjdk
 
 tools:
   - claude
@@ -51,3 +58,8 @@ tools:
   - bob
   - codex
   - copilot
+  - tmux
+  - starship
+  - podman
+  - opencode
+  - maven-3
