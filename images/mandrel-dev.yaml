@@ -3,10 +3,12 @@ description: Mandrel development
 parent: tpl-mandrel-dev-packages
 
 host-resources:
-  - source: ~/.agents/skills/
+  - source: ~/.agents
     mode: readonly
   # - source: ~/.claude/skills/
   #   mode: readonly
+  - source: ~/.claude/CLAUDE.md
+    mode: readonly
   - source: ~/.claude/plugins/
     mode: readonly
   - source: ~/.emacs.d/init.el
