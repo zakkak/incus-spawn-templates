@@ -46,6 +46,8 @@ packages:
   - java-25-openjdk-devel
   - java-25-openjdk-javadoc
   - java-25-openjdk-src
+  - python3-pip
+  - uv
 
 env:
   - name: JAVA_HOME
