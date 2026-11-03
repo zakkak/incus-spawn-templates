@@ -1,0 +1,40 @@
+name: omp
+description: omp 18.16.0 — coding agent with the IDE wired in (oh-my-pi)
+
+# omp ships one self-contained binary per platform, and the upstream installer
+# only falls back to these release assets when it cannot find a usable Bun. So
+# taking them directly keeps Bun — and Node.js — out of the image. The checksums
+# are the ones the release publishes in SHA256SUMS.txt.
+packages:
+  - git   # omp reads history, diffs and worktrees through it
+
+downloads:
+  - url: https://github.com/can1357/oh-my-pi/releases/download/v18.16.0/omp-linux-x64
+    sha256: 6498ed785bab00d2926e0387e0ec02362d6d45f1c3d0d1b57c1618b7f95c9264
+    destination_file: /usr/local/bin/omp
+    arch: x86_64
+  - url: https://github.com/can1357/oh-my-pi/releases/download/v18.16.0/omp-linux-arm64
+    sha256: c2be1ea85ce17c4270854b57efff2a7ea1d5a03c7557fd08721f2b9bb32698de
+    destination_file: /usr/local/bin/omp
+    arch: aarch64
+
+run:
+  # destination_file only guarantees a+r, and this one is an executable.
+  - chmod 0755 /usr/local/bin/omp
+
+# The template pins the version, so the startup update check can only report a
+# build the image cannot take without a rebuild. `omp update` still works when
+# the agent asks for it. The settings file holds only this: omp merges the rest
+# from its defaults.
+files:
+  - path: /home/agentuser/.omp/agent/config.yml
+    owner: agentuser:agentuser
+    content: |
+      startup:
+        checkUpdate: false
+
+verify: omp --version
+
+agent_note: |
+  omp is installed, with its config, sessions and credentials in ~/.omp/agent
+  (not Pi's ~/.pi/agent).

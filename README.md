@@ -69,6 +69,31 @@ OpenSSL 3.5+ strict verification.
 | `labsjdk` | JVMCI-enabled labsjdk fetched by `mx` into `/opt/jdks` and set as `JAVA_HOME` (param: `jdk_id`) |
 | `jtreg` | JTReg test harness (installed to `/opt`, `jtreg` on PATH) |
 | `pinchtab` | [PinchTab](https://github.com/pinchtab/pinchtab) browser control for agents — headless Chromium, the `pinchtab` skill (params: `allowed_domains`, `mcp`) |
+| `omp` | [omp](https://omp.sh/) — Pi's fork with a Rust core, installed as a self-contained binary |
+
+### Coding with omp
+
+omp ships one self-contained binary per platform, and the upstream installer
+only falls back to these release assets when it cannot find a usable Bun. This
+tool takes them directly, so neither Bun nor Node.js enters the image, and pins
+the checksums the release publishes in `SHA256SUMS.txt`. The version is pinned
+too, and the startup update check is off: a template cannot take a newer build
+without a rebuild. `omp update` still works inside an instance when the agent
+asks for it.
+
+omp brings no provider of its own. It reads the provider variables the template
+already exports, the same ones Pi and the other agents use — `OPENAI_API_KEY`
+from `codex`, `GEMINI_API_KEY` from `gemini-cli`, `ANTHROPIC_API_KEY` from a
+`claude` template on an API-key account, `ANTHROPIC_OAUTH_TOKEN` from `pi` — so
+pair it with the agent tool of whichever account it should spend:
+
+```yaml
+name: tpl-omp
+parent: tpl-java
+tools:
+  - codex    # exports OPENAI_API_KEY for omp to spend
+  - omp
+```
 
 ### Giving an agent a browser
 

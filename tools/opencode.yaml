@@ -11,11 +11,11 @@ parameters:
     reconfigurable: true
   small-model:
     type: string
-    description: "Model for lightweight tasks (falls back to a cheaper model from your provider, or to the main model)"
+    description: "Model for lightweight tasks such as title generation (format: provider/model)"
     optional: true
     reconfigurable: true
 run:
-  - npm install -g opencode-ai@latest
+  - npm install -g @opencode/cli@latest
   # Workaround for https://github.com/Sanne/incus-spawn/issues/749
   # host-resource copy creates ~/.config/opencode/ as root
   - |
@@ -23,18 +23,27 @@ run:
     chown agentuser:agentuser /home/agentuser/.config/opencode
 run_as_user:
   - |
-    m='${param_model}'
-    sm='${param_small-model}'
-    printf '{\n  "$schema": "https://opencode.ai/config.json"' > ~/.config/opencode/opencode.json
-    case "$m" in '${param_'*) ;; *) printf ',\n  "model": "%s"' "$m" >> ~/.config/opencode/opencode.json ;; esac
-    case "$sm" in '${param_'*) ;; *) printf ',\n  "small_model": "%s"' "$sm" >> ~/.config/opencode/opencode.json ;; esac
-    printf '\n}\n' >> ~/.config/opencode/opencode.json
+    node - '${param_model}' '${param_small-model}' <<'NODE'
+    const fs = require("fs");
+    const path = require("path");
+
+    const [model, smallModel] = process.argv.slice(2)
+      .filter((value) => value && !value.startsWith("${param_"));
+
+    const config = { "$schema": "https://opencode.ai/config.json" };
+    if (model) config.model = model;
+    if (smallModel) config.agents = { title: { model: smallModel } };
+
+    const dir = path.join(process.env.HOME, ".config", "opencode");
+    fs.mkdirSync(dir, { recursive: true });
+    fs.writeFileSync(path.join(dir, "opencode.json"), `${JSON.stringify(config, null, 2)}\n`);
+    NODE
 files:
   - path: /etc/opencode/opencode.json
     content: |
       {
         "$schema": "https://opencode.ai/config.json",
-        "autoupdate": false,
+        "update": "disable",
         "share": "disabled",
         "provider": {
           "anthropic": {
@@ -54,7 +63,10 @@ actions:
     type: shell
     command: >-
       d=$(sqlite3 -noheader ~/.local/share/opencode/opencode.db
-      "SELECT directory FROM session ORDER BY time_updated DESC LIMIT 1" 2>/dev/null);
+      "SELECT directory FROM session_v2 ORDER BY time_updated DESC LIMIT 1" 2>/dev/null);
+      if [ -z "$d" ]; then
+      d=$(sqlite3 -noheader ~/.local/share/opencode/opencode.db
+      "SELECT directory FROM session ORDER BY time_updated DESC LIMIT 1" 2>/dev/null); fi;
       if [ -n "$d" ] && [ -d "$d" ]; then cd "$d";
       opencode --continue || opencode; else opencode; fi
     auto_return: true

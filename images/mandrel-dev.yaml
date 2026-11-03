@@ -22,12 +22,16 @@ tools:
   - vscode-remote
   - sshd
   - mise
+  - zmx:
+      auto_attach: "false"
 
 repos:
   - host-source: ~/code/incus-spawn
     path: ~/incus-spawn
   - host-source: ~/code/quarkus
     path: ~/quarkus
+  - host-source: ~/code/quarkus-images
+    path: ~/quarkus-images
   - host-source: ~/code/mx
     path: ~/mx
   - host-source: ~/code/mandrel
