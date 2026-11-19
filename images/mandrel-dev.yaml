@@ -28,15 +28,42 @@ tools:
 repos:
   - host-source: ~/code/incus-spawn
     path: ~/incus-spawn
+    prime: |
+      git remote add upstream https://github.com/Sanne/incus-spawn
+      git remote add origin https://github.com/zakkak/incus-spawn
   - host-source: ~/code/quarkus
     path: ~/quarkus
+    prime: |
+      git remote add upstream https://github.com/quarkusio/quarkus
+      git remote add origin https://github.com/zakkak/quarkus
   - host-source: ~/code/quarkus-images
     path: ~/quarkus-images
+    prime: |
+      git remote add upstream https://github.com/quarkusio/quarkus-images
+      git remote add origin https://github.com/zakkak/quarkus-images
   - host-source: ~/code/mx
     path: ~/mx
+    prime: |
+      git remote add upstream https://github.com/graalvm/mx
+      git remote add origin https://github.com/zakkak/mx
   - host-source: ~/code/mandrel
     path: ~/mandrel
+    prime: |
+      git remote add upstream https://github.com/graalvm/mandrel
+      git remote add origin https://github.com/zakkak/mandrel
+      git remote add oracle https://github.com/oracle/graal
+      git remote add backports-21 https://github.com/graalvm/graalvm-community-jdk21u
+      git remote add backports-25 https://github.com/graalvm/graalvm-community-jdk25u
+      git remote add backports-21-zakkak https://github.com/zakkak/graalvm-community-jdk21u
+      git remote add backports-25-zakkak https://github.com/zakkak/graalvm-community-jdk25u
   - host-source: ~/code/mandrel-packaging
     path: ~/mandrel-packaging
+    prime: |
+      git remote add upstream https://github.com/graalvm/mandrel-packaging
+      git remote add origin https://github.com/zakkak/mandrel-packaging
   - host-source: ~/code/mandrel-integration-tests
     path: ~/mandrel-integration-tests
+    prime: |
+      git remote add upstream https://github.com/Karm/mandrel-integration-tests
+      git remote add origin https://github.com/zakkak/mandrel-integration-tests
+

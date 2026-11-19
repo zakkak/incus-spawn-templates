@@ -54,7 +54,6 @@ env:
     value: /usr/lib/jvm/java-25-openjdk
 
 tools:
-  - claude
   - pi
   - gh
   - bob

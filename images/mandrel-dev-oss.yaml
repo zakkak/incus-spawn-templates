@@ -9,6 +9,8 @@ packages:
 
 tools:
   - opencode
+  - claude: {model: claude-sonnet-5}
+default-action: claude
 
 accounts:
   claude: claude-oss
